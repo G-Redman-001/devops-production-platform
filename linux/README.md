@@ -126,3 +126,34 @@ sudo whoami
 root
 
 Это означает, что права администратора работают.
+
+---
+
+### Создание пользователей appuser и testuser
+
+Команды:
+
+sudo adduser appuser
+sudo adduser testuser
+
+Если домашние папки не создались автоматически:
+
+sudo mkdir /home/appuser
+sudo mkdir /home/testuser
+
+Назначение владельцев папок:
+
+sudo chown appuser:appuser /home/appuser
+sudo chown testuser:testuser /home/testuser
+
+Что делает:
+
+Создаёт пользователей appuser и testuser.
+
+Создаются домашние папки:
+
+/home/appuser
+/home/testuser
+
+Назначается владелец папки —
+сам пользователь.
