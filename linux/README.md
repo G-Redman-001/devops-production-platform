@@ -1,19 +1,33 @@
-# Linux Module
+# Модуль Linux
 
-This directory contains Linux-related practice and configuration
-for the DevOps Production Platform project.
+В этой папке находится практика и заметки по Linux
+для проекта DevOps Production Platform.
 
-## Topics covered
+## Темы
 
-- Users
-- Groups
-- Permissions
+- Пользователи
+- Группы
+- Права доступа
 - sudo
-- Processes
-- Services
-- Logs
+- Процессы
+- Сервисы
+- Логи
 
-## Current progress
+## Текущий прогресс
 
-Started Linux module setup.
-Created project structure and connected Git repository.
+Начата Linux-часть проекта.
+Создана структура проекта.
+Git-репозиторий подключён и работает.
+
+## Пользователи и группы
+
+### Что такое пользователь
+Пользователь — это учётная запись в Linux, которая может входить в систему,
+владеть файлами, запускать процессы и иметь права доступа.
+
+### Что такое группа
+Группа — это способ объединять пользователей и управлять правами сразу для нескольких пользователей.
+
+### Зачем это нужно в DevOps
+Пользователи и группы используются для управления доступом
+к файлам, сервисам, деплою и административным действиям.
