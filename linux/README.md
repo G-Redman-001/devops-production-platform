@@ -157,3 +157,150 @@ sudo chown testuser:testuser /home/testuser
 
 Назначается владелец папки —
 сам пользователь.
+
+## Работа с группами и общей директорией (shared)
+
+### Создание группы developers
+
+Создаём группу для пользователей, которые будут работать вместе:
+
+sudo groupadd developers
+
+Проверка:
+
+cat /etc/group | grep developers
+
+
+---
+
+### Добавление пользователей в группу developers
+
+Добавляем пользователей appuser и testuser в группу developers:
+
+sudo usermod -aG developers appuser
+sudo usermod -aG developers testuser
+
+Проверка:
+
+groups appuser
+groups testuser
+
+
+---
+
+### Создание общей директории
+
+Создаём папку shared:
+
+sudo mkdir /home/shared
+
+Назначаем владельцем группу developers:
+
+sudo chown :developers /home/shared
+
+Выдаём права:
+
+sudo chmod 770 /home/shared
+
+Что означает 770:
+
+Владелец → полный доступ  
+Группа → полный доступ  
+Остальные → нет доступа
+
+
+---
+
+### Проверка доступа пользователей
+
+Переключаемся на пользователя:
+
+su - appuser
+
+Переходим в директорию:
+
+cd /home/shared
+
+Создаём файл:
+
+touch app_file.txt
+
+Проверяем:
+
+ls -l
+
+
+---
+
+### Что делает setgid
+
+По умолчанию новые файлы получают группу пользователя.
+
+Например:
+
+appuser создаёт файл → группа файла = appuser
+
+Это неудобно для общей работы.
+
+Чтобы новые файлы автоматически получали группу директории,
+используется setgid.
+
+
+---
+
+### Включение setgid
+
+Команда:
+
+sudo chmod g+s /home/shared
+
+Проверка:
+
+ls -ld /home/shared
+
+Результат:
+
+drwxrws---
+
+Буква "s" означает, что включён setgid.
+
+
+---
+
+### Проверка работы setgid
+
+Создаём новый файл:
+
+su - appuser
+
+cd /home/shared
+
+touch after_setgid.txt
+
+Проверяем:
+
+ls -l
+
+Теперь файл должен иметь группу:
+
+developers
+
+Пример:
+
+-rw-r--r-- 1 appuser developers after_setgid.txt
+
+
+---
+
+### Итог
+
+После настройки:
+
+Все пользователи группы developers могут:
+
+- заходить в /home/shared
+- создавать файлы
+- видеть файлы друг друга
+- работать с общими файлами
+
+Все новые файлы автоматически получают группу developers.
